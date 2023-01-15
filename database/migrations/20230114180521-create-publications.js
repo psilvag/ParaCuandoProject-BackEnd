@@ -3,7 +3,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.createTable('users', {
+      await queryInterface.createTable('Publications', {
         id: {
           allowNull: false,
           defaultValue: Sequelize.UUIDV4,
