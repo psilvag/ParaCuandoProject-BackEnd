@@ -3,7 +3,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.createTable('users', {
+      await queryInterface.createTable('publications', {
         id: {
           allowNull: false,
           defaultValue: Sequelize.UUIDV4,
@@ -81,7 +81,7 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.dropTable('users',{ transaction })
+      await queryInterface.dropTable('publications',{ transaction })
       await transaction.commit()
     } catch (error) {
       await transaction.rollback()
