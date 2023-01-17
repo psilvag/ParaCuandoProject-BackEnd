@@ -15,7 +15,7 @@ module.exports = {
           type: Sequelize.UUID,
           foreignKey: true,
           references: {
-            model: 'Profiles',
+            model: 'profiles',
             key: 'id'
           },
           onUpdate: 'CASCADE',
@@ -26,7 +26,7 @@ module.exports = {
           type: Sequelize.INTEGER,
           foreignKey: true,
           references: {
-            model: 'Categories',
+            model: 'categories',
             key: 'id'
           },
           onUpdate: 'CASCADE',
@@ -48,7 +48,7 @@ module.exports = {
           type: Sequelize.INTEGER,
           foreignKey: true,
           references: {
-            model: 'City',
+            model: 'city',
             key: 'id'
           },
           onUpdate: 'CASCADE',
