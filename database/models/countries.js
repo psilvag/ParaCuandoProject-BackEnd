@@ -15,10 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Countries.init({
-    id:{
-      type:DataTypes.INTEGER,
-      primaryKey:true
-    },
+    id:DataTypes.INTEGER,
     name: DataTypes.STRING
   }, {
     sequelize,

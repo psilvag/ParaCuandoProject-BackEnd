@@ -11,19 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       
-      Publications.hasMany(models.Votes,{as:'votes',foreignKey:'publication_id'})
-
+      //Publications.hasMany(models.Votes,{as:'votes',foreignKey:'publication_id'})
+      
       Publications.belongsTo(models.Profiles,{as:'profiles',foreignKey:'profile_id'})
       Publications.belongsTo(models.Categories,{as:'categories',foreignKey:'category_id'})
       Publications.belongsTo(models.City,{as:'city',foreignKey:'city_id'})
-     
+      Publications.belongsToMany(models.Profiles,{through:Votes})
+      
     }
   }
   Publications.init({
-    id:{
-      type:DataTypes.UUID,
-      primaryKey:true
-    },
+    id:DataTypes.UUID,
     profile_id:DataTypes.UUID,
     category_id: DataTypes.INTEGER,
     title: DataTypes.STRING,

@@ -10,18 +10,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Profiles.hasMany(models.Votes,{as:'votes',foreignKey:'profile_id'})
-      Profiles.hasMany(models.Publications,{as:'publications',foreignKey:'profile_id'})
+    
       Profiles.belongsTo(models.Users,{as:'users',foreignKey:'user_id'})
       Profiles.belongsTo(models.Roles,{as:'roles',foreignKey:'role_id'})
       Profiles.belongsTo(models.Countries,{as:'countries',foreignKey:'country_id'})
+      Profiles.belongsToMany(models.Publications,{through:Votes})
     }
   }
   Profiles.init({
-    id:{
-      type:DataTypes.UUID,
-      primaryKey:true
-    },
+    id:DataTypes.UUID,
     user_id: DataTypes.UUID,
     role_id: DataTypes.INTEGER,
     image_url: DataTypes.STRING,

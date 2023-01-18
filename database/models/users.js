@@ -10,14 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-        Users.hasOne(models.Profiles,{as:'profiles',foreignKey:'user_id'})
+        Users.hasMany(models.Profiles,{as:'profiles',foreignKey:'user_id'})
     }
   }
   Users.init({
-    id:{
-      type:DataTypes.UUID,
-      primaryKey:true
-    },
+    id:DataTypes.UUID,
     first_name: {
       type: DataTypes.STRING,
       allowNull: false,
