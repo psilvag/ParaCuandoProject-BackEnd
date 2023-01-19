@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Publications extends Model {
+  class Publication extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,16 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       
-      //Publications.hasMany(models.Votes,{as:'votes',foreignKey:'publication_id'})
       
-      Publications.belongsTo(models.Profiles,{as:'profiles',foreignKey:'profile_id'})
-      Publications.belongsTo(models.Categories,{as:'categories',foreignKey:'category_id'})
-      Publications.belongsTo(models.City,{as:'city',foreignKey:'city_id'})
-      Publications.belongsToMany(models.Profiles,{through:Votes})
+      Publication.belongsTo(models.Category,{as:'Categories',foreignKey:'category_id'})
+      Publication.belongsTo(models.City,{as:'Cities',foreignKey:'city_id'})
+      Publication.belongsToMany(models.Profile,{through:models.Vote})
       
     }
   }
-  Publications.init({
+  Publication.init({
     id:DataTypes.UUID,
     profile_id:DataTypes.UUID,
     category_id: DataTypes.INTEGER,
@@ -32,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     image_url: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Publications',
-    tableName:'publications',
+    modelName: 'Publication',
+    tableName:'Publications',
     underscored:true,
     timestamps:true,
     scopes:{
@@ -43,5 +41,5 @@ module.exports = (sequelize, DataTypes) => {
     },
   }
   );
-  return Publications;
+  return Publication;
 };

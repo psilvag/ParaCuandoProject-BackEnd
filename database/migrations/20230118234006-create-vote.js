@@ -4,25 +4,30 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.createTable('city', {
-        id: {
-          allowNull: false,
-          autoIncrement: true,
-          primaryKey: true,
-          type: Sequelize.BIGINT
-        },
-        country_id: {
-          type: Sequelize.INTEGER,
+      await queryInterface.createTable('Votes', {
+        publication_id: {
+          type: Sequelize.UUID,
+          allowNull:false,
+          primaryKey:true,
           foreignKey: true,
           references: {
-            model: 'countries',
+            model: 'Publication',
             key: 'id'
           },
           onUpdate: 'CASCADE',
           onDelete: 'RESTRICT'
         },
-        name: {
-          type: Sequelize.STRING
+        profile_id: {
+          type: Sequelize.UUID,
+          allowNull:false,
+          primaryKey:true,
+          foreignKey: true,
+          references: {
+            model: 'Profile',
+            key: 'id'
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'RESTRICT'
         },
         createdAt: {
           allowNull: false,
@@ -41,9 +46,8 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
-
     try{
-      await queryInterface.dropTable('city',{transaction})
+      await queryInterface.dropTable('Votes',{transaction})
       await transaction.commit()
     }
     catch (error) {

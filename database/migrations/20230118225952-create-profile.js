@@ -3,59 +3,52 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
-    try {
-      await queryInterface.createTable('publications', {
+    try{
+      await queryInterface.createTable('Profiles', {
         id: {
           allowNull: false,
-          primaryKey: true,
           defaultValue:Sequelize.UUIDV4,
+          primaryKey: true,
           type: Sequelize.UUID
         },
-        profile_id: {
+        user_id: {
           type: Sequelize.UUID,
-          foreignKey: true,
+          foreignKey:true,
           references: {
-            model: 'profiles',
+            model: 'User',
             key: 'id'
           },
-          onUpdate: 'CASCADE',
-          onDelete: 'RESTRICT'
-
-        },
-        category_id: {
-          type: Sequelize.INTEGER,
-          foreignKey: true,
-          references: {
-            model: 'categories',
-            key: 'id'
-          },
-          onUpdate: 'CASCADE',
+          onUpdate: 'CASCADE', 
           onDelete: 'RESTRICT'
         },
-        title: {
-          type: Sequelize.STRING
-        },
-        description: {
-          type: Sequelize.STRING
-        },
-        content: {
-          type: Sequelize.TEXT
-        },
-        picture: {
-          type: Sequelize.STRING
-        },
-        city_id: {
+        role_id: {
           type: Sequelize.INTEGER,
-          foreignKey: true,
+          foreignKey:true,
           references: {
-            model: 'city',
+            model: 'Rol',
             key: 'id'
           },
-          onUpdate: 'CASCADE',
+          onUpdate: 'CASCADE', 
           onDelete: 'RESTRICT'
         },
         image_url: {
           type: Sequelize.STRING
+        },
+        code_phone: {
+          type: Sequelize.INTEGER
+        },
+        phone: {
+          type: Sequelize.INTEGER
+        },
+        country_id: {
+          type: Sequelize.INTEGER,
+          foreignKey:true,
+          references: {
+            model: 'Country',
+            key: 'id'
+          },
+          onUpdate: 'CASCADE', 
+          onDelete: 'RESTRICT'
         },
         createdAt: {
           allowNull: false,
@@ -65,24 +58,25 @@ module.exports = {
           allowNull: false,
           type: Sequelize.DATE
         }
-      }, { transaction })
+      },{transaction})
       await transaction.commit()
     }
     catch (error) {
       await transaction.rollback()
       throw error
     }
-  },
 
+  },
   async down(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
     try{
-      await queryInterface.dropTable('publications',{transaction})
+      await queryInterface.dropTable('Profiles',{transaction})
       await transaction.commit()
     }
     catch (error) {
       await transaction.rollback()
       throw error
     }
+   
   }
 }

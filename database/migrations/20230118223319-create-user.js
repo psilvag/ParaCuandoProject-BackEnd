@@ -1,20 +1,39 @@
 'use strict'
 /** @type {import('sequelize-cli').Migration} */
+
+
 module.exports = {
+
   async up(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
-    try {
-      await queryInterface.createTable('categories', {
+    try{
+      await queryInterface.createTable('Users',{
         id: {
           allowNull: false,
-          autoIncrement: true,
+          defaultValue:Sequelize.UUIDV4,
           primaryKey: true,
-          type: Sequelize.INTEGER
+          type: Sequelize.UUID
         },
-        name: {
+        first_name: {
           type: Sequelize.STRING
         },
-        description: {
+        last_name: {
+          type: Sequelize.STRING
+        },
+        email: {
+          type: Sequelize.STRING,
+          unique:true
+        },
+        username: {
+          type: Sequelize.STRING
+        },
+        password: {
+          type: Sequelize.STRING
+        },
+        email_verified: {
+          type: Sequelize.DATE
+        },
+        token: {
           type: Sequelize.STRING
         },
         createdAt: {
@@ -25,9 +44,10 @@ module.exports = {
           allowNull: false,
           type: Sequelize.DATE
         }
-      }, { transaction })
+      },{transaction})
       await transaction.commit()
-    } catch (error) {
+    } 
+    catch (error) {
       await transaction.rollback()
       throw error
     }
@@ -35,7 +55,7 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
     try{
-      await queryInterface.dropTable('categories',{transaction})
+      await queryInterface.dropTable('Users',{transaction})
       await transaction.commit()
     }
     catch (error) {

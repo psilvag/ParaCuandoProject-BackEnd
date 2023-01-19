@@ -4,12 +4,22 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.createTable('roles', {
+      await queryInterface.createTable('Cities', {
         id: {
           allowNull: false,
           autoIncrement: true,
           primaryKey: true,
           type: Sequelize.INTEGER
+        },
+        country_id: {
+          type: Sequelize.INTEGER,
+          foreignKey: true,
+          references: {
+            model: 'Country',
+            key: 'id'
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'RESTRICT'
         },
         name: {
           type: Sequelize.STRING
@@ -29,11 +39,11 @@ module.exports = {
       throw error
     }
   },
-
   async down(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
+
     try{
-      await queryInterface.dropTable('roles',{transaction})
+      await queryInterface.dropTable('Cities',{transaction})
       await transaction.commit()
     }
     catch (error) {
