@@ -6,6 +6,10 @@ require('dotenv').config()
 const app = express()
 const PORT = process.env.PORT || 8000
 
+
+const authRouter=require('./routes/auth.router')
+
+
 /*
 Cors Settings
 */
@@ -51,6 +55,10 @@ app.get('/', ({ res }) => {
     maintenance: false,
   })
 })
+
+app.use('/api/v1/auth',authRouter)
+
+
 
 app.listen(PORT, () => {
   console.log(`Server on PORT: ${PORT}`)
