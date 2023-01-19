@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       
       
-      Publication.belongsTo(models.Category,{as:'Categories',foreignKey:'category_id'})
-      Publication.belongsTo(models.City,{as:'Cities',foreignKey:'city_id'})
-      Publication.belongsToMany(models.Profile,{through:models.Vote})
+      Publication.belongsTo(models.Category,{as:'categories',foreignKey:'category_id'})
+      Publication.belongsTo(models.City,{as:'cities',foreignKey:'city_id'})
+      Publication.belongsToMany(models.Profile,{as:'votes_publications',through:models.Vote,foreignKey:'publication_id'})
       
     }
   }
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Publication',
-    tableName:'Publications',
+    tableName:'publications',
     underscored:true,
     timestamps:true,
     scopes:{

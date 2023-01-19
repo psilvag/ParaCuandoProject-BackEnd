@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
     
-      Profile.belongsTo(models.User,{as:'Users',foreignKey:'user_id'})
-      Profile.belongsTo(models.Rol,{as:'Rols',foreignKey:'role_id'})
-      Profile.belongsTo(models.Country,{as:'Countries',foreignKey:'country_id'})
-      Profile.belongsToMany(models.Publication,{through:models.Vote})
+      Profile.belongsTo(models.User,{as:'users',foreignKey:'user_id'})
+      Profile.belongsTo(models.Rol,{as:'rols',foreignKey:'role_id'})
+      Profile.belongsTo(models.Country,{as:'countries',foreignKey:'country_id'})
+      Profile.belongsToMany(models.Publication,{as:'votes_profiles',through:models.Vote,foreignKey:'profile_id'})
     }
   }
   Profile.init({
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   {
     sequelize,
     modelName: 'Profile',
-    tableName:'Profiles',
+    tableName:'profiles',
     underscored:true,
     timestamps:true,
     scopes:{

@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Vote.belongsTo(models.Profile,{as:'Profiles',foreignKey:'profile_id'})
-      Vote.belongsTo(models.Publication,{as:'Publications',foreignKey:'publication_id'})
+      Vote.belongsTo(models.Profile,{as:'profiles',foreignKey:'profile_id'})
+      Vote.belongsTo(models.Publication,{as:'publications',foreignKey:'publication_id'})
     }
   }
   Vote.init({
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Vote',
-    tableName:'Votes',
+    tableName:'votes',
     underscored:true,
     timestamps:true,
     scopes:{
